@@ -47,7 +47,7 @@ This theme does not bundle custom fonts. It uses system fonts by default for bet
 
 Recommended optional fonts:
 
-- Body text: system UI fonts, Noto Sans CJK, Microsoft YaHei, PingFang SC
+- Body text: system UI fonts, Inter, Noto Sans CJK, Microsoft YaHei, PingFang SC
 - Headings: system UI fonts, Noto Serif CJK SC, Source Han Serif SC, Songti SC
 - Code: Cascadia Code, Fira Code, JetBrains Mono, Consolas, Menlo
 
@@ -56,8 +56,6 @@ Recommended optional fonts:
 ![thumbnail](source/preview01.png)
 
 ![preview02](source/preview02.png)
-
-![preview02](source/preview03.png)
 
 ## Tested On
 

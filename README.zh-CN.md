@@ -47,7 +47,7 @@ Nocturne 使用深紫灰色背景、柔和的紫色强调色、清晰的代码�
 
 推荐的可选字体：
 
-- 正文：系统 UI 字体、Noto Sans CJK、微软雅黑、苹方
+- 正文：系统 UI 字体、Inter、Noto Sans CJK、微软雅黑、苹方
 - 标题：系统 UI 字体、Noto Serif CJK SC、思源宋体、宋体
 - 代码：Cascadia Code、Fira Code、JetBrains Mono、Consolas、Menlo
 
@@ -56,8 +56,6 @@ Nocturne 使用深紫灰色背景、柔和的紫色强调色、清晰的代码�
 ![thumbnail](source/preview01.png)
 
 ![preview02](source/preview02.png)
-
-![preview02](source/preview03.png)
 
 ## 测试环境
 
