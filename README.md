@@ -53,8 +53,6 @@ Recommended optional fonts:
 
 ## Screenshots
 
-![thumbnail](source/preview01.png)
-
 ![preview02](source/preview02.png)
 
 ## Tested On

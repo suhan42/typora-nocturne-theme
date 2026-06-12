@@ -53,8 +53,6 @@ Nocturne 使用深紫灰色背景、柔和的紫色强调色、清晰的代码�
 
 ## 展示
 
-![thumbnail](source/preview01.png)
-
 ![preview02](source/preview02.png)
 
 ## 测试环境
