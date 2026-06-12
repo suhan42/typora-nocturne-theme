@@ -1,0 +1,976 @@
+/* ============================================
+    Author: suhan
+    https://github.com/suhan42/typora-nocturne-theme
+
+   BASE
+   ============================================ */
+
+:root {
+    /* Fonts */
+    --font-sans:              -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    --font-heading:           -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+    --font-mono:              "Cascadia Code", "Fira Code", "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+    /* Surfaces */
+    --bg-color:               #211d25;
+    --bg-color-deep:          #19161d;
+    --bg-color-panel:         #28242e;
+    --bg-color-panel-strong:  #2c2634;
+    --side-bar-bg-color:      var(--bg-color-deep);
+
+    /* Text */
+    --text-color:             #e8e6ec;
+    --text-color-secondary:   #d4d0da;
+    --text-color-muted:       #938f9b;
+    --md-char-color:          #4a4353;
+    --meta-content-color:     #6b5f7a;
+
+    /* Accents */
+    --primary-color:          #b080ff;
+    --accent-purple-soft:     #d4c5f9;
+    --accent-blue:            #8dc8fb;
+    --accent-cyan:            #80f4ff;
+    --accent-green:           #80ffb5;
+    --accent-pink:            #ff80b5;
+    --accent-amber:           #ffcf99;
+    --accent-red:             #ff8080;
+
+    /* Borders and states */
+    --border-color:           #2e2935;
+    --border-color-strong:    #3a3344;
+    --selection-bg:           rgba(176, 128, 255, 0.38);
+    --primary-btn-border-color: #7138cc;
+    --primary-btn-text-color: #ffffff;
+    --window-border:          1px solid var(--border-color);
+    --active-file-bg-color:   var(--bg-color-panel);
+    --active-file-text-color: #e2d3fe;
+    --active-file-border-color: var(--primary-color);
+    --item-hover-bg-color:    rgba(176, 128, 255, 0.08);
+    --item-hover-text-color:  #e2d3fe;
+    --monospace:              var(--font-mono);
+
+    /* Mermaid */
+    --mermaid-theme:          neutral;
+    --mermaid-font-family:    var(--font-sans);
+    --mermaid-sequence-numbers: off;
+    --mermaid-flowchart-curve: basis;
+}
+
+/* 全局选区：避免暗色主题下出现浅底浅字。 */
+::selection {
+    background: var(--selection-bg);
+    color: #ffffff;
+}
+
+#write ::selection {
+    background: var(--selection-bg);
+    color: #ffffff;
+}
+
+html {
+    font-size: 16px;
+    background-color: var(--bg-color);
+}
+
+/* 源码模式：强制使用主题背景，避免切换时回落到默认浅色样式。 */
+#typora-source,
+#typora-source .CodeMirror,
+#typora-source .CodeMirror-lines {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* 源码模式右下角按钮：避免“退出源代码模式”出现背景/文字同色。 */
+.typora-sourceview-on #toggle-sourceview-btn,
+#toggle-sourceview-btn:hover,
+#footer-word-count:hover,
+.ty-show-word-count #footer-word-count {
+    background: var(--bg-color-panel) !important;
+    color: #e2d3fe !important;
+    border-color: var(--border-color-strong) !important;
+}
+
+#toggle-sourceview-btn {
+    color: #938f9b;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+/* ============================================
+   WRITING AREA
+   ============================================ */
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+    font-size: 1rem;
+    line-height: 1.85;
+    font-weight: 300;
+    color: var(--text-color-secondary);
+}
+
+@media only screen and (min-width: 1400px) {
+    #write {
+        max-width: 1024px;
+    }
+}
+
+@media only screen and (min-width: 1800px) {
+    #write {
+        max-width: 1200px;
+    }
+}
+
+/* ============================================
+   HEADINGS
+   ============================================ */
+
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 2.4rem;
+    margin-bottom: 0.8rem;
+    color: #e2d3fe;
+    letter-spacing: 0;
+}
+
+#write h1 {
+    font-size: 2rem;
+    color: #f0e8ff;
+    border-bottom: 1px solid rgba(176, 128, 255, 0.5);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+#write h2 {
+    font-size: 1.6rem;
+    color: #d8c3ff;
+    border-bottom: 1px solid rgba(176, 128, 255, 0.38);
+    padding-bottom: 0.35rem;
+}
+
+#write h3 {
+    font-size: 1.3rem;
+    color: #80f4ff;
+}
+
+#write h4 {
+    font-size: 1.1rem;
+    color: #ff80b5;
+}
+
+#write h5 {
+    font-size: 1rem;
+    color: #b080ff;
+}
+
+#write h6 {
+    font-size: 0.92rem;
+    color: #9f99aa;
+}
+
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    margin: 0.6rem 0 1rem;
+}
+
+/* ============================================
+   PARAGRAPH & TEXT
+   ============================================ */
+
+#write p {
+    margin: 0.6rem 0 1rem;
+    color: var(--text-color-secondary);
+}
+
+#write strong {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+#write em {
+    color: #c4b4ee;
+    font-style: italic;
+}
+
+#write sup,
+#write sub {
+    color: var(--accent-cyan);
+    font-size: 0.7em;
+    line-height: 0;
+    position: relative;
+}
+
+#write sup {
+    vertical-align: baseline;
+    top: -0.35em;
+}
+
+#write sub {
+    vertical-align: baseline;
+    bottom: -0.2em;
+}
+
+/* 脚注引用和底部脚注区：保持清晰，但不打断正文阅读节奏。 */
+#write .md-footnote,
+#write sup.md-footnote {
+    background-color: rgba(176, 128, 255, 0.14);
+    color: var(--accent-purple-soft);
+    border: 1px solid rgba(176, 128, 255, 0.28);
+    border-radius: 4px;
+    padding: 0 0.28em;
+    font-size: 0.78em;
+    font-weight: 600;
+    line-height: 1.2;
+    position: relative;
+    top: -0.18em;
+    vertical-align: baseline;
+}
+
+#write .md-footnote:hover,
+#write sup.md-footnote:hover {
+    background-color: rgba(176, 128, 255, 0.24);
+    color: #ffffff;
+}
+
+.footnotes,
+.footnotes-area {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(176, 128, 255, 0.28);
+    color: #b3a3dd;
+    font-size: 0.92rem;
+}
+
+.footnotes-area .footnote-line,
+.footnotes li {
+    color: #b3a3dd;
+    line-height: 1.7;
+}
+
+.footnotes-area .footnote-line:hover,
+.footnotes li:hover {
+    color: var(--accent-purple-soft);
+}
+
+.footnotes-area hr,
+.footnotes hr {
+    border: none;
+    height: 1px;
+    background: rgba(176, 128, 255, 0.28);
+}
+
+#write a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    border-radius: 3px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+#write a:hover {
+    color: var(--accent-cyan);
+    background-color: rgba(141, 200, 251, 0.12);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ============================================
+   CODE
+   ============================================ */
+
+/* Inline code */
+code, tt {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background-color: var(--bg-color-panel);
+    color: var(--accent-amber);
+    padding: 0.15em 0.45em;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+/* Code block container */
+.md-fences,
+code, tt {
+    font-family: var(--font-mono);
+}
+
+.md-fences {
+    background-color: var(--bg-color-deep);
+    border: 1px solid var(--border-color-strong);
+    border-radius: 8px;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+    padding: 0.9rem 1.2rem;
+    color: var(--text-color-secondary);
+    font-size: 0.88em;
+    line-height: 1.65;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.md-fences.md-focus {
+    border-color: rgba(176, 128, 255, 0.5);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 0 0 1px rgba(176, 128, 255, 0.12),
+        0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.CodeMirror-gutters {
+    background-color: #17141b;
+    border-right: 1px solid var(--border-color-strong);
+}
+
+/* Mermaid / diagram preview
+   Keep global text colors untouched: flowchart nodes may use light fills. */
+.md-diagram-panel {
+    background-color: rgba(25, 22, 29, 0.32);
+    border: 1px solid rgba(58, 51, 68, 0.72);
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    overflow-x: auto;
+}
+
+#write .md-focus .md-diagram-panel {
+    border-color: rgba(176, 128, 255, 0.42);
+    box-shadow: 0 0 0 1px rgba(176, 128, 255, 0.1);
+}
+
+.md-diagram-panel svg {
+    max-width: 100%;
+}
+
+.md-diagram-panel .messageText,
+.md-diagram-panel .loopText,
+.md-diagram-panel .labelText,
+.md-diagram-panel .noteText,
+.md-diagram-panel .sequenceNumber,
+.md-diagram-panel .sectionTitle,
+.md-diagram-panel .taskText,
+.md-diagram-panel .taskTextOutsideRight,
+.md-diagram-panel .taskTextOutsideLeft,
+.md-diagram-panel .tick text,
+.md-diagram-panel .todayText {
+    fill: var(--text-color) !important;
+    color: var(--text-color) !important;
+}
+
+.md-diagram-panel .actor-line,
+.md-diagram-panel .messageLine0,
+.md-diagram-panel .messageLine1,
+.md-diagram-panel .loopLine,
+.md-diagram-panel .noteLine,
+.md-diagram-panel .activation0,
+.md-diagram-panel .activation1,
+.md-diagram-panel .activation2,
+.md-diagram-panel .note,
+.md-diagram-panel .grid .tick line {
+    stroke: rgba(232, 230, 236, 0.72) !important;
+}
+
+.md-diagram-panel .arrowheadPath,
+.md-diagram-panel marker path {
+    fill: rgba(232, 230, 236, 0.86) !important;
+    stroke: rgba(232, 230, 236, 0.86) !important;
+}
+
+.md-diagram-panel .labelBox {
+    fill: var(--bg-color-panel) !important;
+    stroke: rgba(212, 197, 249, 0.58) !important;
+}
+
+.md-diagram-panel .labelText,
+.md-diagram-panel .loopText {
+    fill: var(--accent-purple-soft) !important;
+    color: var(--accent-purple-soft) !important;
+}
+
+.md-diagram-panel .note {
+    fill: rgba(176, 128, 255, 0.1) !important;
+}
+
+.md-diagram-panel .task {
+    stroke: rgba(176, 128, 255, 0.45) !important;
+}
+
+.md-diagram-panel .grid .tick line {
+    opacity: 0.55;
+}
+
+.md-diagram-panel-error {
+    display: none;
+}
+
+.md-diagram-panel-error:not(:empty) {
+    display: block;
+    background-color: rgba(255, 128, 128, 0.06);
+    border: 1px solid rgba(255, 128, 128, 0.22);
+    border-radius: 4px;
+    color: #ffb0b0 !important;
+    margin-top: 0.75rem;
+    padding: 0.45rem 0.75rem;
+}
+
+.enable-diagrams pre.md-fences[lang="sequence"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="flow"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="mermaid"] .code-tooltip {
+    background-color: var(--bg-color-panel) !important;
+    color: var(--accent-purple-soft) !important;
+    border: 1px solid var(--border-color-strong);
+    border-radius: 4px;
+}
+
+/* ============================================
+   BLOCKQUOTE
+   ============================================ */
+
+#write blockquote {
+    border-left: 3px solid #7138cc;
+    background-color: rgba(113, 56, 204, 0.08);
+    margin: 1.2rem 0;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0 6px 6px 0;
+    color: #b3a3dd;
+}
+
+#write blockquote p {
+    color: #b3a3dd;
+    margin: 0;
+}
+
+/* ============================================
+   TABLE
+   ============================================ */
+
+#write table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.4rem 0;
+    font-size: 0.93rem;
+    border: 1px solid var(--border-color-strong);
+}
+
+#write table thead tr {
+    background-color: var(--bg-color-panel-strong);
+    border-bottom: 2px solid rgba(176, 128, 255, 0.35);
+}
+
+#write table th {
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #e2d3fe;
+    font-size: 0.88rem;
+    letter-spacing: 0.01em;
+    border: 1px solid var(--border-color-strong);
+}
+
+#write table td {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-color-strong);
+    color: #c8c4d0;
+    vertical-align: top;
+}
+
+#write table tr:nth-child(2n) td {
+    background-color: rgba(40, 36, 46, 0.62);
+}
+
+#write table tr:hover td {
+    background-color: rgba(176, 128, 255, 0.1);
+}
+
+/* ============================================
+   LIST
+   ============================================ */
+
+#write ul,
+#write ol {
+    padding-left: 1.875rem;  /* Match GitHub theme: 30px */
+    margin: 0.8em 0;
+}
+
+#write li > ul,
+#write li > ol {
+    margin: 0;
+}
+
+#write ul:first-child,
+#write ol:first-child {
+    margin-top: 0;
+}
+
+#write ul:last-child,
+#write ol:last-child {
+    margin-bottom: 0;
+}
+
+#write li {
+    color: #d4d0da;
+    line-height: 1.8;
+}
+
+#write ul li::marker {
+    color: #7138cc;
+}
+
+#write ol li::marker {
+    color: #7138cc;
+    font-weight: 600;
+}
+
+/* ============================================
+   TASK LIST / checkbox
+   ============================================ */
+
+#write li p.first {
+    display: inline-block;
+}
+
+#write .md-task-list-item > input {
+    margin-left: -1.3em;
+    accent-color: #7138cc;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#write .md-task-list-item {
+    line-height: 1.6;
+}
+
+#write .md-task-list-item.task-list-done > p {
+    color: #7f758d;
+    text-decoration: line-through;
+}
+
+/* ============================================
+   HR
+   ============================================ */
+
+#write hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(176, 128, 255, 0.55),
+        rgba(128, 244, 255, 0.38),
+        transparent
+    );
+    margin: 2.4rem 0;
+}
+
+/* ============================================
+   IMAGE
+   ============================================ */
+
+#write img {
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* ============================================
+   MARK / HIGHLIGHT
+   ============================================ */
+
+#write mark {
+    background-color: rgba(128, 255, 181, 0.18);
+    color: #c8ffd9;
+    border: 1px solid rgba(128, 255, 181, 0.34);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+}
+
+/* ============================================
+   TOC
+   ============================================ */
+
+.md-toc {
+    background-color: var(--bg-color-deep);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    margin: 1.5rem 0;
+}
+
+.md-toc-item a {
+    color: #938f9b;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.md-toc-item a:hover {
+    color: var(--primary-color);
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+.sidebar-tab-btn {
+    color: #938f9b;
+}
+
+.sidebar-tab-btn.active {
+    color: var(--primary-color);
+}
+
+#typora-sidebar {
+    background-color: var(--side-bar-bg-color);
+    border-right: var(--window-border);
+}
+
+.file-list-item-file-name,
+.file-node-content {
+    color: #938f9b;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+}
+
+.file-list-item.active .file-list-item-file-name,
+.file-node-open > .file-node-background > .file-node-content {
+    color: var(--accent-purple-soft);
+}
+
+.file-list-item.active,
+.file-node-open > .file-node-background,
+.outline-active,
+.pin-outline .outline-active {
+    background-color: rgba(176, 128, 255, 0.08);
+    border-radius: 4px;
+}
+
+.outline-active,
+.outline-active .outline-label,
+.pin-outline .outline-active,
+.pin-outline .outline-active .outline-label {
+    color: #d4c5f9 !important;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color-strong);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7138cc;
+}
+
+/* ============================================
+   FOCUS MODE
+   ============================================ */
+
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) {
+    opacity: 0.25;
+}
+
+/* ============================================
+   PRINT / EXPORT
+   ============================================ */
+
+@media print {
+    body {
+        /* 打印/导出使用浅色底，避免暗色背景导致耗墨或可读性问题。 */
+        background-color: #ffffff;
+        color: #1f1b24;
+    }
+
+    .typora-export * {
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+/* Typora special blocks fallback: YAML, HTML and raw blocks. */
+pre.md-meta-block,
+.md-rawblock-container,
+.md-htmlblock-container {
+    background: var(--bg-color-deep) !important;
+    color: var(--text-color-secondary) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+#write pre.md-meta-block {
+    background: linear-gradient(
+        135deg,
+        rgba(176, 128, 255, 0.12),
+        rgba(25, 22, 29, 0.96)
+    ) !important;
+    color: #c4b4ee !important;
+    border: 1px solid var(--border-color-strong);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 8px;
+    margin: 0 0 1.6rem;
+    padding: 0.85rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.65;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.md-rawblock-input,
+.md-rawblock-control:not(.md-rawblock-tooltip),
+.md-rawblock-on-edit,
+.md-rawblock-on-edit .md-rawblock-container,
+.md-mathjax-midline .CodeMirror,
+.md-mathjax-midline .CodeMirror-lines,
+.md-mathjax-midline .CodeMirror-code,
+.md-mathjax-midline textarea {
+    color: #d4d0da !important;
+}
+
+.md-rawblock-input,
+.md-rawblock-control:not(.md-rawblock-tooltip),
+.md-rawblock-on-edit,
+.md-rawblock-on-edit .md-rawblock-container {
+    background-color: var(--bg-color-deep) !important;
+}
+
+.md-mathjax-midline .CodeMirror,
+.md-mathjax-midline .CodeMirror-lines,
+.md-mathjax-midline .CodeMirror-code,
+.md-mathjax-midline textarea {
+    background-color: transparent !important;
+}
+
+.md-display-math,
+.MathJax_Display,
+.md-mathjax-preview {
+    background-color: transparent !important;
+    border-radius: 0;
+    margin: 1.1rem 0;
+    padding: 0;
+}
+
+.md-mathjax-midline {
+    background-color: transparent !important;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.md-display-math.md-focus,
+.md-mathjax-preview.md-focus,
+.md-mathjax-midline.md-focus,
+.md-rawblock-on-edit .md-mathjax-preview,
+.md-rawblock-on-edit .md-mathjax-midline {
+    background-color: rgba(176, 128, 255, 0.035) !important;
+    border-radius: 3px;
+    padding: 0.08rem 0.18rem;
+}
+
+.md-mathjax-midline .CodeMirror-cursor,
+.md-rawblock-input .CodeMirror-cursor,
+.md-rawblock-container .CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid #dcfb77 !important;
+}
+
+.md-rawblock > .md-rawblock-tooltip,
+.md-rawblock-tooltip,
+.md-htmlblock-panel,
+.md-htmlblock .md-rawblock-tooltip {
+    background-color: var(--bg-color-panel) !important;
+    color: var(--accent-purple-soft) !important;
+    border: 1px solid var(--border-color-strong);
+    border-radius: 4px;
+}
+
+.md-rawblock-tooltip .ty-rawblock-confirm,
+.md-rawblock-tooltip a,
+.md-rawblock-tooltip span {
+    background-color: transparent !important;
+    color: var(--accent-purple-soft) !important;
+}
+
+.md-rawblock-tooltip a:hover,
+.md-rawblock-tooltip .ty-rawblock-confirm:hover {
+    color: var(--accent-cyan) !important;
+}
+
+.md-mathjax-midline ::selection,
+.md-rawblock-input ::selection,
+.md-rawblock-on-edit ::selection {
+    background-color: rgba(176, 128, 255, 0.45) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* ============================================
+   SYNTAX HIGHLIGHTING / CodeMirror
+   ============================================ */
+
+.cm-s-inner {
+    background-color: var(--bg-color-deep);
+    color: var(--text-color-secondary);
+    font-family: var(--font-mono);
+    line-height: 1.6;
+}
+
+.cm-s-inner .CodeMirror-gutters {
+    background: #17141b;
+    border-right: 1px solid var(--border-color-strong);
+}
+
+.cm-s-inner .CodeMirror-linenumber {
+    color: #6b5f7a;
+}
+
+.cm-s-inner .CodeMirror-cursor {
+    border-left: 1px solid #dcfb77 !important;
+}
+
+/* CodeMirror 选区：统一代码块和源码模式的选中背景。 */
+.cm-s-inner div.CodeMirror-selected {
+    background: var(--selection-bg) !important;
+}
+
+.CodeMirror-selected,
+.CodeMirror-focused .CodeMirror-selected,
+#typora-source .CodeMirror-selected {
+    background: var(--selection-bg) !important;
+}
+
+/* 选中文字本身不绘制背景，让底层紫色选区露出来。 */
+.CodeMirror-selectedtext {
+    color: #ffffff !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.md-fences ::selection,
+.md-fences .CodeMirror-line::selection,
+.md-fences .CodeMirror-line span::selection,
+.md-fences pre.CodeMirror-line::selection,
+.md-fences pre.CodeMirror-line span::selection,
+.cm-s-inner ::selection,
+.cm-s-inner span::selection {
+    background: rgba(176, 128, 255, 0.45) !important;
+    background-color: rgba(176, 128, 255, 0.45) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+#write .md-fences .CodeMirror-selected,
+#write .md-fences .CodeMirror-focused .CodeMirror-selected,
+#write .md-fences .CodeMirror div.CodeMirror-selected,
+#write .md-fences .CodeMirror-focused div.CodeMirror-selected,
+.md-fences .CodeMirror-selected,
+.md-fences .CodeMirror-focused .CodeMirror-selected,
+.md-fences .CodeMirror div.CodeMirror-selected,
+.md-fences .CodeMirror-focused div.CodeMirror-selected,
+.cm-s-inner.CodeMirror div.CodeMirror-selected,
+.cm-s-typora-default div.CodeMirror-selected {
+    background: rgba(176, 128, 255, 0.45) !important;
+}
+
+#write .md-fences .CodeMirror-selectedtext,
+.md-fences .CodeMirror-selectedtext,
+.cm-s-inner .CodeMirror-selectedtext {
+    color: #ffffff !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* 语法 token 不再叠加白底，修复代码块中“有字区域白底白字”。 */
+#write .md-fences .CodeMirror-selectedtext *,
+#write .md-fences .CodeMirror-line .CodeMirror-selectedtext,
+#write .md-fences .CodeMirror-line .CodeMirror-selectedtext *,
+.md-fences .CodeMirror-selectedtext *,
+.md-fences .CodeMirror-line .CodeMirror-selectedtext,
+.md-fences .CodeMirror-line .CodeMirror-selectedtext *,
+.cm-s-inner .CodeMirror-selectedtext *,
+.cm-s-inner .CodeMirror-line .CodeMirror-selectedtext,
+.cm-s-inner .CodeMirror-line .CodeMirror-selectedtext * {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.cm-s-inner .cm-keyword {
+    color: #e2d3fe;
+}
+
+.cm-s-inner .cm-def,
+.cm-s-inner .cm-callee {
+    color: var(--accent-blue);
+}
+
+.cm-s-inner .cm-string,
+.cm-s-inner .cm-string-2 {
+    color: var(--accent-green);
+}
+
+.cm-s-inner .cm-variable,
+.cm-s-inner .cm-variable-2,
+.cm-s-inner .cm-variable-3,
+.cm-s-inner .cm-property {
+    color: var(--accent-cyan);
+}
+
+.cm-s-inner .cm-number {
+    color: var(--accent-amber);
+}
+
+.cm-s-inner .cm-type,
+.cm-s-inner .cm-qualifier,
+.cm-s-inner .cm-builtin {
+    color: var(--accent-amber);
+}
+
+.cm-s-inner .cm-comment {
+    color: rgba(255, 255, 255, 0.33);
+    font-style: italic;
+}
+
+.cm-s-inner .cm-operator,
+.cm-s-inner .cm-punctuation {
+    color: #c4b4ee;
+}
+
+.cm-s-inner .cm-tag {
+    color: var(--accent-pink);
+}
+
+.cm-s-inner .cm-attribute {
+    color: var(--accent-amber);
+}
+
+.cm-s-inner .cm-error {
+    color: var(--accent-red);
+    border-bottom: 1px solid var(--accent-red);
+}
