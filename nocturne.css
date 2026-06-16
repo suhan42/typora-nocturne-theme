@@ -5,8 +5,7 @@
    BASE
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
     /* Fonts */
@@ -38,17 +37,48 @@
     --accent-amber:           #ffcf99;
     --accent-red:             #ff8080;
 
+    /* Transparent color channels / 透明色通道 */
+    --primary-rgb:             176, 128, 255;
+    --primary-deep-rgb:        113, 56, 204;
+    --accent-blue-rgb:         141, 200, 251;
+    --accent-cyan-rgb:         128, 244, 255;
+    --accent-green-rgb:        128, 255, 181;
+    --accent-red-rgb:          255, 128, 128;
+    --text-rgb:                232, 230, 236;
+    --accent-purple-soft-rgb:  212, 197, 249;
+    --bg-color-deep-rgb:       25, 22, 29;
+    --bg-color-panel-rgb:      40, 36, 46;
+    --border-color-strong-rgb: 58, 51, 68;
+    --white-rgb:               255, 255, 255;
+    --black-rgb:               0, 0, 0;
+
+    /* Transparent semantic tokens / 常用透明色 */
+    --primary-bg-subtle:       rgba(var(--primary-rgb), 0.08);
+    --primary-bg-soft:         rgba(var(--primary-rgb), 0.1);
+    --primary-bg-highlight:    rgba(var(--primary-rgb), 0.14);
+    --primary-bg-active:       rgba(var(--primary-rgb), 0.24);
+    --primary-bg-selected:     rgba(var(--primary-rgb), 0.45);
+    --primary-border-subtle:   rgba(var(--primary-rgb), 0.28);
+    --primary-border-medium:   rgba(var(--primary-rgb), 0.35);
+    --primary-border-strong:   rgba(var(--primary-rgb), 0.5);
+    --link-underline-color:    rgba(var(--accent-blue-rgb), 0.32);
+    --link-hover-bg-color:     rgba(var(--accent-cyan-rgb), 0.1);
+    --link-hover-line-color:   rgba(var(--accent-cyan-rgb), 0.78);
+    --surface-hairline:        rgba(var(--white-rgb), 0.03);
+    --shadow-soft:             rgba(var(--black-rgb), 0.18);
+    --shadow-medium:           rgba(var(--black-rgb), 0.22);
+
     /* Borders and states */
     --border-color:           #2e2935;
     --border-color-strong:    #3a3344;
-    --selection-bg:           rgba(176, 128, 255, 0.38);
+    --selection-bg:           rgba(var(--primary-rgb), 0.38);
     --primary-btn-border-color: #7138cc;
     --primary-btn-text-color: #ffffff;
     --window-border:          1px solid var(--border-color);
     --active-file-bg-color:   var(--bg-color-panel);
     --active-file-text-color: #e2d3fe;
     --active-file-border-color: var(--primary-color);
-    --item-hover-bg-color:    rgba(176, 128, 255, 0.08);
+    --item-hover-bg-color:    var(--primary-bg-subtle);
     --item-hover-text-color:  #e2d3fe;
     --monospace:              var(--font-mono);
 
@@ -68,6 +98,20 @@
 #write ::selection {
     background: var(--selection-bg);
     color: #ffffff;
+}
+
+/* Keep the writing cursor visible on colored inline text.
+   CodeMirror/code blocks override this later. */
+#write,
+#write * {
+    caret-color: #ffffff;
+}
+
+#write .md-fences,
+#write .md-fences *,
+.cm-s-inner,
+.cm-s-inner * {
+    caret-color: #dcfb77;
 }
 
 html {
@@ -153,7 +197,7 @@ body {
 #write h1 {
     font-size: 2rem;
     color: #f0e8ff;
-    border-bottom: 1px solid rgba(176, 128, 255, 0.5);
+    border-bottom: 1px solid var(--primary-border-strong);
     padding-bottom: 0.5rem;
     margin-bottom: 1.2rem;
 }
@@ -161,7 +205,7 @@ body {
 #write h2 {
     font-size: 1.6rem;
     color: #d8c3ff;
-    border-bottom: 1px solid rgba(176, 128, 255, 0.38);
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.38);
     padding-bottom: 0.35rem;
 }
 
@@ -185,6 +229,7 @@ body {
     color: #9f99aa;
 }
 
+#write h2,
 #write h3,
 #write h4,
 #write h5,
@@ -232,9 +277,9 @@ body {
 /* 脚注引用和底部脚注区：保持清晰，但不打断正文阅读节奏。 */
 #write .md-footnote,
 #write sup.md-footnote {
-    background-color: rgba(176, 128, 255, 0.14);
+    background-color: var(--primary-bg-highlight);
     color: var(--accent-purple-soft);
-    border: 1px solid rgba(176, 128, 255, 0.28);
+    border: 1px solid var(--primary-border-subtle);
     border-radius: 4px;
     padding: 0 0.28em;
     font-size: 0.78em;
@@ -247,7 +292,7 @@ body {
 
 #write .md-footnote:hover,
 #write sup.md-footnote:hover {
-    background-color: rgba(176, 128, 255, 0.24);
+    background-color: var(--primary-bg-active);
     color: #ffffff;
 }
 
@@ -255,7 +300,7 @@ body {
 .footnotes-area {
     margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(176, 128, 255, 0.28);
+    border-top: 1px solid var(--primary-border-subtle);
     color: #b3a3dd;
     font-size: 0.92rem;
 }
@@ -275,20 +320,27 @@ body {
 .footnotes hr {
     border: none;
     height: 1px;
-    background: rgba(176, 128, 255, 0.28);
+    background: var(--primary-border-subtle);
 }
 
 #write a {
     color: var(--accent-blue);
     text-decoration: none;
+    border-bottom: 1px solid var(--link-underline-color);
     border-radius: 3px;
-    transition: color 0.15s ease, background-color 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 #write a:hover {
     color: var(--accent-cyan);
-    background-color: rgba(141, 200, 251, 0.12);
-    text-decoration: underline;
+    background-color: var(--link-hover-bg-color);
+    border-bottom-color: var(--link-hover-line-color);
+}
+
+#write u,
+#write ins {
+    text-decoration-color: var(--primary-color);
+    text-decoration-thickness: 1.5px;
     text-underline-offset: 3px;
 }
 
@@ -324,16 +376,16 @@ code, tt {
     font-size: 0.88em;
     line-height: 1.65;
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.03),
-        0 8px 24px rgba(0, 0, 0, 0.18);
+        inset 0 1px 0 var(--surface-hairline),
+        0 8px 24px var(--shadow-soft);
 }
 
 .md-fences.md-focus {
-    border-color: rgba(176, 128, 255, 0.5);
+    border-color: var(--primary-border-strong);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.04),
-        0 0 0 1px rgba(176, 128, 255, 0.12),
-        0 8px 24px rgba(0, 0, 0, 0.22);
+        inset 0 1px 0 rgba(var(--white-rgb), 0.04),
+        0 0 0 1px rgba(var(--primary-rgb), 0.12),
+        0 8px 24px var(--shadow-medium);
 }
 
 .CodeMirror-gutters {
@@ -344,8 +396,8 @@ code, tt {
 /* Mermaid / diagram preview
    Keep global text colors untouched: flowchart nodes may use light fills. */
 .md-diagram-panel {
-    background-color: rgba(25, 22, 29, 0.32);
-    border: 1px solid rgba(58, 51, 68, 0.72);
+    background-color: rgba(var(--bg-color-deep-rgb), 0.32);
+    border: 1px solid rgba(var(--border-color-strong-rgb), 0.72);
     border-radius: 8px;
     margin: 1rem 0;
     padding: 0.75rem;
@@ -353,8 +405,8 @@ code, tt {
 }
 
 #write .md-focus .md-diagram-panel {
-    border-color: rgba(176, 128, 255, 0.42);
-    box-shadow: 0 0 0 1px rgba(176, 128, 255, 0.1);
+    border-color: rgba(var(--primary-rgb), 0.42);
+    box-shadow: 0 0 0 1px var(--primary-bg-soft);
 }
 
 .md-diagram-panel svg {
@@ -386,18 +438,18 @@ code, tt {
 .md-diagram-panel .activation2,
 .md-diagram-panel .note,
 .md-diagram-panel .grid .tick line {
-    stroke: rgba(232, 230, 236, 0.72) !important;
+    stroke: rgba(var(--text-rgb), 0.72) !important;
 }
 
 .md-diagram-panel .arrowheadPath,
 .md-diagram-panel marker path {
-    fill: rgba(232, 230, 236, 0.86) !important;
-    stroke: rgba(232, 230, 236, 0.86) !important;
+    fill: rgba(var(--text-rgb), 0.86) !important;
+    stroke: rgba(var(--text-rgb), 0.86) !important;
 }
 
 .md-diagram-panel .labelBox {
     fill: var(--bg-color-panel) !important;
-    stroke: rgba(212, 197, 249, 0.58) !important;
+    stroke: rgba(var(--accent-purple-soft-rgb), 0.58) !important;
 }
 
 .md-diagram-panel .labelText,
@@ -407,11 +459,11 @@ code, tt {
 }
 
 .md-diagram-panel .note {
-    fill: rgba(176, 128, 255, 0.1) !important;
+    fill: var(--primary-bg-soft) !important;
 }
 
 .md-diagram-panel .task {
-    stroke: rgba(176, 128, 255, 0.45) !important;
+    stroke: var(--primary-bg-selected) !important;
 }
 
 .md-diagram-panel .grid .tick line {
@@ -424,8 +476,8 @@ code, tt {
 
 .md-diagram-panel-error:not(:empty) {
     display: block;
-    background-color: rgba(255, 128, 128, 0.06);
-    border: 1px solid rgba(255, 128, 128, 0.22);
+    background-color: rgba(var(--accent-red-rgb), 0.06);
+    border: 1px solid rgba(var(--accent-red-rgb), 0.22);
     border-radius: 4px;
     color: #ffb0b0 !important;
     margin-top: 0.75rem;
@@ -447,7 +499,7 @@ code, tt {
 
 #write blockquote {
     border-left: 3px solid #7138cc;
-    background-color: rgba(113, 56, 204, 0.08);
+    background-color: rgba(var(--primary-deep-rgb), 0.08);
     margin: 1.2rem 0;
     padding: 0.8rem 1.2rem;
     border-radius: 0 6px 6px 0;
@@ -466,14 +518,14 @@ code, tt {
 #write table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1.4rem 0;
+    margin: 0.35rem 0 0.75rem;
     font-size: 0.93rem;
     border: 1px solid var(--border-color-strong);
 }
 
 #write table thead tr {
     background-color: var(--bg-color-panel-strong);
-    border-bottom: 2px solid rgba(176, 128, 255, 0.35);
+    border-bottom: 2px solid var(--primary-border-medium);
 }
 
 #write table th {
@@ -494,11 +546,62 @@ code, tt {
 }
 
 #write table tr:nth-child(2n) td {
-    background-color: rgba(40, 36, 46, 0.62);
+    background-color: rgba(var(--bg-color-panel-rgb), 0.62);
 }
 
 #write table tr:hover td {
-    background-color: rgba(176, 128, 255, 0.1);
+    background-color: var(--primary-bg-soft);
+}
+
+/* Typora table edit UI / 表格编辑浮层 */
+.ty-table-edit,
+#md-grid-widget,
+.md-table-resize-popover,
+#typora-table-row-col-resize,
+.table-tooltip {
+    background-color: var(--bg-color-deep) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color-strong) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 18px 44px rgba(var(--black-rgb), 0.42) !important;
+}
+
+.ty-table-edit td {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+    min-height: 16px !important;
+    max-height: 16px !important;
+    padding: 0 !important;
+    background-color: var(--bg-color-panel) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    font-size: 0 !important;
+}
+
+.ty-table-edit td.active,
+.ty-table-edit td.highlight {
+    background-color: rgba(var(--primary-rgb), 0.26) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.ty-table-edit .ty-table-edit-footer,
+.table-tooltip .btn,
+.table-tooltip button,
+.md-table-resize-popover button,
+#typora-table-row-col-resize button {
+    color: var(--text-color-muted) !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.table-tooltip .btn:hover,
+.table-tooltip button:hover,
+.md-table-resize-popover button:hover,
+#typora-table-row-col-resize button:hover {
+    color: var(--accent-cyan) !important;
+    background-color: var(--link-hover-bg-color) !important;
 }
 
 /* ============================================
@@ -574,8 +677,8 @@ code, tt {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(176, 128, 255, 0.55),
-        rgba(128, 244, 255, 0.38),
+        rgba(var(--primary-rgb), 0.55),
+        rgba(var(--accent-cyan-rgb), 0.38),
         transparent
     );
     margin: 2.4rem 0;
@@ -596,9 +699,9 @@ code, tt {
    ============================================ */
 
 #write mark {
-    background-color: rgba(128, 255, 181, 0.18);
+    background-color: rgba(var(--accent-green-rgb), 0.18);
     color: #c8ffd9;
-    border: 1px solid rgba(128, 255, 181, 0.34);
+    border: 1px solid rgba(var(--accent-green-rgb), 0.34);
     padding: 0.1em 0.3em;
     border-radius: 3px;
 }
@@ -658,7 +761,7 @@ code, tt {
 .file-node-open > .file-node-background,
 .outline-active,
 .pin-outline .outline-active {
-    background-color: rgba(176, 128, 255, 0.08);
+    background-color: var(--primary-bg-subtle);
     border-radius: 4px;
 }
 
@@ -728,8 +831,8 @@ pre.md-meta-block,
 #write pre.md-meta-block {
     background: linear-gradient(
         135deg,
-        rgba(176, 128, 255, 0.12),
-        rgba(25, 22, 29, 0.96)
+        rgba(var(--primary-rgb), 0.12),
+        rgba(var(--bg-color-deep-rgb), 0.96)
     ) !important;
     color: #c4b4ee !important;
     border: 1px solid var(--border-color-strong);
@@ -740,7 +843,40 @@ pre.md-meta-block,
     font-family: var(--font-mono);
     font-size: 0.85rem;
     line-height: 1.65;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    box-shadow: inset 0 1px 0 var(--surface-hairline);
+}
+
+/* Math / LaTeX：阅读状态保持透明，编辑状态为深色覆盖。 */
+.md-math-block,
+.md-display-math,
+.MathJax_Display,
+.md-mathjax-preview {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0;
+    margin: 0.85rem 0;
+    padding: 0;
+    overflow-x: auto;
+}
+
+.md-mathjax-midline {
+    background-color: transparent !important;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.md-math-block .MathJax,
+.md-display-math .MathJax,
+.MathJax_Display .MathJax {
+    color: var(--text-color-secondary);
+}
+
+.md-math-block:not(.md-rawblock-on-edit) .md-rawblock-container,
+.md-math-block:not(.md-rawblock-on-edit) .md-math-container {
+    background-color: transparent !important;
+    border: none !important;
 }
 
 .md-rawblock-input,
@@ -751,7 +887,7 @@ pre.md-meta-block,
 .md-mathjax-midline .CodeMirror-lines,
 .md-mathjax-midline .CodeMirror-code,
 .md-mathjax-midline textarea {
-    color: #d4d0da !important;
+    color: var(--text-color) !important;
 }
 
 .md-rawblock-input,
@@ -768,30 +904,45 @@ pre.md-meta-block,
     background-color: transparent !important;
 }
 
-.md-display-math,
-.MathJax_Display,
-.md-mathjax-preview {
-    background-color: transparent !important;
-    border-radius: 0;
-    margin: 1.1rem 0;
-    padding: 0;
-}
-
-.md-mathjax-midline {
-    background-color: transparent !important;
-    border: none;
-    border-radius: 0;
-    padding: 0;
-}
-
+.md-math-block.md-focus,
+.md-math-block.md-rawblock-on-edit,
+#write .md-math-block.md-rawblock-on-edit,
 .md-display-math.md-focus,
 .md-mathjax-preview.md-focus,
 .md-mathjax-midline.md-focus,
 .md-rawblock-on-edit .md-mathjax-preview,
 .md-rawblock-on-edit .md-mathjax-midline {
-    background-color: rgba(176, 128, 255, 0.035) !important;
-    border-radius: 3px;
-    padding: 0.08rem 0.18rem;
+    background-color: rgba(var(--primary-rgb), 0.045) !important;
+    border-radius: 6px;
+    padding: 0.12rem 0.24rem;
+}
+
+.md-math-block .md-rawblock-before,
+.md-math-block .md-rawblock-after {
+    background-color: transparent !important;
+    color: var(--text-color-muted) !important;
+}
+
+.md-math-block.md-rawblock-on-edit .md-rawblock-before,
+.md-math-block.md-rawblock-on-edit .md-rawblock-after,
+.md-rawblock-on-edit .md-rawblock-input,
+.md-rawblock-input {
+    background-color: var(--bg-color-deep) !important;
+    color: var(--text-color) !important;
+}
+
+.md-hover-tip,
+#math-tooltip,
+.md-rawblock-on-edit .CodeMirror,
+.md-math-block .CodeMirror {
+    background-color: var(--bg-color-deep) !important;
+    color: var(--text-color) !important;
+}
+
+.md-rawblock-on-edit .CodeMirror-gutters,
+.md-math-block .CodeMirror-gutters {
+    background-color: var(--bg-color-deep) !important;
+    border-right: 1px solid var(--border-color-strong) !important;
 }
 
 .md-mathjax-midline .CodeMirror-cursor,
@@ -825,7 +976,7 @@ pre.md-meta-block,
 .md-mathjax-midline ::selection,
 .md-rawblock-input ::selection,
 .md-rawblock-on-edit ::selection {
-    background-color: rgba(176, 128, 255, 0.45) !important;
+    background-color: var(--primary-bg-selected) !important;
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
 }
@@ -880,8 +1031,8 @@ pre.md-meta-block,
 .md-fences pre.CodeMirror-line span::selection,
 .cm-s-inner ::selection,
 .cm-s-inner span::selection {
-    background: rgba(176, 128, 255, 0.45) !important;
-    background-color: rgba(176, 128, 255, 0.45) !important;
+    background: var(--primary-bg-selected) !important;
+    background-color: var(--primary-bg-selected) !important;
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
 }
@@ -896,7 +1047,7 @@ pre.md-meta-block,
 .md-fences .CodeMirror-focused div.CodeMirror-selected,
 .cm-s-inner.CodeMirror div.CodeMirror-selected,
 .cm-s-typora-default div.CodeMirror-selected {
-    background: rgba(176, 128, 255, 0.45) !important;
+    background: var(--primary-bg-selected) !important;
 }
 
 #write .md-fences .CodeMirror-selectedtext,
@@ -956,7 +1107,7 @@ pre.md-meta-block,
 }
 
 .cm-s-inner .cm-comment {
-    color: rgba(255, 255, 255, 0.33);
+    color: rgba(var(--white-rgb), 0.33);
     font-style: italic;
 }
 
