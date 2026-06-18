@@ -89,28 +89,22 @@
     --mermaid-flowchart-curve: basis;
 }
 
-/* 全局选区：避免暗色主题下出现浅底浅字。 */
+/* 全局选区：只保留一层规则，避免 Typora 编辑区重复匹配选区样式。 */
 ::selection {
     background: var(--selection-bg);
     color: #ffffff;
 }
 
-#write ::selection {
-    background: var(--selection-bg);
-    color: #ffffff;
-}
-
-/* Keep the writing cursor visible on colored inline text.
-   CodeMirror/code blocks override this later. */
+/* 写作光标：只在容器层设置颜色，避免给每个可编辑后代单独套样式。
+   Typora 输入时会频繁重建行内节点，因此不要在编辑热路径使用
+   `#write *` 或 `.cm-s-inner *`。 */
 #write,
-#write * {
+#typora-source,
+.cm-s-inner {
     caret-color: #ffffff;
 }
 
-#write .md-fences,
-#write .md-fences *,
-.cm-s-inner,
-.cm-s-inner * {
+#write .md-fences {
     caret-color: #dcfb77;
 }
 
@@ -1005,73 +999,22 @@ pre.md-meta-block,
     border-left: 1px solid #dcfb77 !important;
 }
 
-/* CodeMirror 选区：统一代码块和源码模式的选中背景。 */
-.cm-s-inner div.CodeMirror-selected {
-    background: var(--selection-bg) !important;
-}
-
+/* CodeMirror 选区：只覆盖选区层，避免对每个语法片段或行内节点做深层匹配。 */
 .CodeMirror-selected,
 .CodeMirror-focused .CodeMirror-selected,
-#typora-source .CodeMirror-selected {
+#typora-source .CodeMirror-selected,
+.cm-s-inner div.CodeMirror-selected,
+.cm-s-typora-default div.CodeMirror-selected {
     background: var(--selection-bg) !important;
 }
 
-/* 选中文字本身不绘制背景，让底层紫色选区露出来。 */
-.CodeMirror-selectedtext {
-    color: #ffffff !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    -webkit-text-fill-color: #ffffff !important;
-}
-
-.md-fences ::selection,
-.md-fences .CodeMirror-line::selection,
-.md-fences .CodeMirror-line span::selection,
-.md-fences pre.CodeMirror-line::selection,
-.md-fences pre.CodeMirror-line span::selection,
-.cm-s-inner ::selection,
-.cm-s-inner span::selection {
-    background: var(--primary-bg-selected) !important;
-    background-color: var(--primary-bg-selected) !important;
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-}
-
-#write .md-fences .CodeMirror-selected,
-#write .md-fences .CodeMirror-focused .CodeMirror-selected,
-#write .md-fences .CodeMirror div.CodeMirror-selected,
-#write .md-fences .CodeMirror-focused div.CodeMirror-selected,
-.md-fences .CodeMirror-selected,
-.md-fences .CodeMirror-focused .CodeMirror-selected,
-.md-fences .CodeMirror div.CodeMirror-selected,
-.md-fences .CodeMirror-focused div.CodeMirror-selected,
-.cm-s-inner.CodeMirror div.CodeMirror-selected,
-.cm-s-typora-default div.CodeMirror-selected {
-    background: var(--primary-bg-selected) !important;
-}
-
+.CodeMirror-selectedtext,
 #write .md-fences .CodeMirror-selectedtext,
 .md-fences .CodeMirror-selectedtext,
 .cm-s-inner .CodeMirror-selectedtext {
     color: #ffffff !important;
     background: transparent !important;
     background-color: transparent !important;
-    -webkit-text-fill-color: #ffffff !important;
-}
-
-/* 语法 token 不再叠加白底，修复代码块中“有字区域白底白字”。 */
-#write .md-fences .CodeMirror-selectedtext *,
-#write .md-fences .CodeMirror-line .CodeMirror-selectedtext,
-#write .md-fences .CodeMirror-line .CodeMirror-selectedtext *,
-.md-fences .CodeMirror-selectedtext *,
-.md-fences .CodeMirror-line .CodeMirror-selectedtext,
-.md-fences .CodeMirror-line .CodeMirror-selectedtext *,
-.cm-s-inner .CodeMirror-selectedtext *,
-.cm-s-inner .CodeMirror-line .CodeMirror-selectedtext,
-.cm-s-inner .CodeMirror-line .CodeMirror-selectedtext * {
-    background: transparent !important;
-    background-color: transparent !important;
-    color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
 }
 

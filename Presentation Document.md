@@ -43,15 +43,15 @@ You can use it to write [technical documents](https://typora.io), personal knowl
 
 # heading 标题
 
-## 2标题
+## 2标题 \#fff2bf 月光金有仪式感
 
-### 3标题
+### 3标题 \#64e0b3 极光绿
 
-#### 4标题
+#### 4标题 \#ff7fa2 玫瑰红，有情绪但不脏
 
-##### 5标题
+##### 5标题 \#c8a8ff 星云紫，保留主题身份
 
-###### 6标题
+###### 6标题 \#b8a3bd 烟紫灰，收低层级
 
 7没有标题
 
