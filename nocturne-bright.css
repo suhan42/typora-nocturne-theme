@@ -1,0 +1,1075 @@
+/* ============================================
+    Author: suhan
+    https://github.com/suhan42/typora-nocturne-theme
+
+   BASE
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    color-scheme: light;
+
+    /* Fonts */
+    --font-sans: -apple-system, BlinkMacSystemFont,'Inter', "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    --font-heading: -apple-system, BlinkMacSystemFont, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+    --font-mono: "Cascadia Code", "Fira Code", "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+    /* Surfaces */
+    --bg-color:               #fbf8ff;
+    --bg-color-deep:          #f0eaf7;
+    --bg-color-panel:         #ffffff;
+    --bg-color-panel-strong:  #f5effa;
+    --side-bar-bg-color:      #f4eef9;
+
+    /* Text */
+    --text-color:             #2d2834;
+    --text-color-secondary:   #4f4859;
+    --text-color-muted:       #817789;
+    --md-char-color:          #b0a6bc;
+    --meta-content-color:     #8c8199;
+
+    /* Accents */
+    --primary-color:          #7542bd;
+    --accent-purple-soft:     #6d4ea3;
+    --accent-blue:            #276fa9;
+    --accent-cyan:            #008494;
+    --accent-green:           #168452;
+    --accent-pink:            #b3316d;
+    --accent-amber:           #9a5a16;
+    --accent-red:             #c33c3c;
+
+    /* Transparent color channels / 透明色通道 */
+    --primary-rgb:             117, 66, 189;
+    --primary-deep-rgb:        88, 45, 150;
+    --accent-blue-rgb:         39, 111, 169;
+    --accent-cyan-rgb:         0, 132, 148;
+    --accent-green-rgb:        22, 132, 82;
+    --accent-red-rgb:          195, 60, 60;
+    --text-rgb:                45, 40, 52;
+    --accent-purple-soft-rgb:  109, 78, 163;
+    --bg-color-deep-rgb:       240, 234, 247;
+    --bg-color-panel-rgb:      255, 255, 255;
+    --border-color-strong-rgb: 211, 199, 224;
+    --white-rgb:               255, 255, 255;
+    --black-rgb:               0, 0, 0;
+
+    /* Transparent semantic tokens / 常用透明色 */
+    --primary-bg-subtle:       rgba(var(--primary-rgb), 0.07);
+    --primary-bg-soft:         rgba(var(--primary-rgb), 0.1);
+    --primary-bg-highlight:    rgba(var(--primary-rgb), 0.14);
+    --primary-bg-active:       rgba(var(--primary-rgb), 0.18);
+    --primary-bg-selected:     rgba(var(--primary-rgb), 0.28);
+    --primary-border-subtle:   rgba(var(--primary-rgb), 0.2);
+    --primary-border-medium:   rgba(var(--primary-rgb), 0.3);
+    --primary-border-strong:   rgba(var(--primary-rgb), 0.42);
+    --link-underline-color:    rgba(var(--accent-blue-rgb), 0.26);
+    --link-hover-bg-color:     rgba(var(--accent-cyan-rgb), 0.08);
+    --link-hover-line-color:   rgba(var(--accent-cyan-rgb), 0.56);
+    --surface-hairline:        rgba(var(--white-rgb), 0.72);
+    --shadow-soft:             rgba(49, 39, 61, 0.08);
+    --shadow-medium:           rgba(49, 39, 61, 0.12);
+
+    /* Borders and states */
+    --border-color:           #e6ddeb;
+    --border-color-strong:    #d3c7e0;
+    --selection-bg:           #7542bd;
+    --primary-btn-border-color: #5d2f9e;
+    --primary-btn-text-color: #ffffff;
+    --window-border:          1px solid var(--border-color);
+    --active-file-bg-color:   var(--primary-bg-subtle);
+    --active-file-text-color: #5b2f91;
+    --active-file-border-color: var(--primary-color);
+    --item-hover-bg-color:    var(--primary-bg-subtle);
+    --item-hover-text-color:  #5b2f91;
+    --monospace:              var(--font-mono);
+
+    /* Mermaid */
+    --mermaid-theme:          neutral;
+    --mermaid-font-family:    var(--font-sans);
+    --mermaid-sequence-numbers: off;
+    --mermaid-flowchart-curve: basis;
+}
+
+/* 全局选区：只保留一层规则，避免 Typora 编辑区重复匹配选区样式。 */
+::selection {
+    background: var(--selection-bg);
+    color: #ffffff;
+}
+
+/* 写作光标：只在容器层设置颜色，避免给每个可编辑后代单独套样式。
+   Typora 输入时会频繁重建行内节点，因此不要在编辑热路径使用
+   `#write *` 或 `.cm-s-inner *`。 */
+#write,
+#typora-source,
+.cm-s-inner {
+    caret-color: var(--text-color);
+}
+
+#write .md-fences {
+    caret-color: var(--primary-color);
+}
+
+html {
+    font-size: 16px;
+    background-color: var(--bg-color);
+}
+
+/* 源码模式：强制使用主题背景，避免切换时回落到默认浅色样式。 */
+#typora-source,
+#typora-source .CodeMirror,
+#typora-source .CodeMirror-lines {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* 源码模式右下角按钮：避免“退出源代码模式”出现背景/文字同色。 */
+.typora-sourceview-on #toggle-sourceview-btn,
+#toggle-sourceview-btn:hover,
+#footer-word-count:hover,
+.ty-show-word-count #footer-word-count {
+    background: var(--bg-color-panel) !important;
+    color: #5b2f91 !important;
+    border-color: var(--border-color-strong) !important;
+}
+
+#toggle-sourceview-btn {
+    color: var(--text-color-muted);
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+/* ============================================
+   WRITING AREA
+   ============================================ */
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+    font-size: 1rem;
+    line-height: 1.85;
+    font-weight: 300;
+    color: var(--text-color-secondary);
+}
+
+@media only screen and (min-width: 1400px) {
+    #write {
+        max-width: 1024px;
+    }
+}
+
+@media only screen and (min-width: 1800px) {
+    #write {
+        max-width: 1200px;
+    }
+}
+
+/* ============================================
+   HEADINGS
+   ============================================ */
+
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 2.4rem;
+    margin-bottom: 0.8rem;
+    color: #5b2f91;
+    letter-spacing: 0;
+}
+
+#write h1 {
+    font-size: 2rem;
+    color: #2d2834;
+    border-bottom: 1px solid var(--primary-border-strong);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+#write h2 {
+    font-size: 1.6rem;
+    color: #5b2f91;
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.38);
+    padding-bottom: 0.35rem;
+}
+
+#write h3 {
+    font-size: 1.3rem;
+    color: var(--accent-cyan);
+}
+
+#write h4 {
+    font-size: 1.1rem;
+    color: var(--accent-pink);
+}
+
+#write h5 {
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+#write h6 {
+    font-size: 0.92rem;
+    color: var(--text-color-muted);
+}
+
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    margin: 0.6rem 0 1rem;
+}
+
+/* ============================================
+   PARAGRAPH & TEXT
+   ============================================ */
+
+#write p {
+    margin: 0.6rem 0 1rem;
+    color: var(--text-color-secondary);
+}
+
+#write strong {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+#write em {
+    color: #6d4ea3;
+    font-style: italic;
+}
+
+#write sup,
+#write sub {
+    color: var(--accent-cyan);
+    font-size: 0.7em;
+    line-height: 0;
+    position: relative;
+}
+
+#write sup {
+    vertical-align: baseline;
+    top: -0.35em;
+}
+
+#write sub {
+    vertical-align: baseline;
+    bottom: -0.2em;
+}
+
+/* 脚注引用和底部脚注区：保持清晰，但不打断正文阅读节奏。 */
+#write .md-footnote,
+#write sup.md-footnote {
+    background-color: var(--primary-bg-highlight);
+    color: var(--accent-purple-soft);
+    border: 1px solid var(--primary-border-subtle);
+    border-radius: 4px;
+    padding: 0 0.28em;
+    font-size: 0.78em;
+    font-weight: 600;
+    line-height: 1.2;
+    position: relative;
+    top: -0.18em;
+    vertical-align: baseline;
+}
+
+#write .md-footnote:hover,
+#write sup.md-footnote:hover {
+    background-color: var(--primary-bg-active);
+    color: #4a237d;
+}
+
+.footnotes,
+.footnotes-area {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--primary-border-subtle);
+    color: #6d5d87;
+    font-size: 0.92rem;
+}
+
+.footnotes-area .footnote-line,
+.footnotes li {
+    color: #6d5d87;
+    line-height: 1.7;
+}
+
+.footnotes-area .footnote-line:hover,
+.footnotes li:hover {
+    color: var(--accent-purple-soft);
+}
+
+.footnotes-area hr,
+.footnotes hr {
+    border: none;
+    height: 1px;
+    background: var(--primary-border-subtle);
+}
+
+#write a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    border-bottom: 1px solid var(--link-underline-color);
+    border-radius: 3px;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+#write a:hover {
+    color: var(--accent-cyan);
+    background-color: var(--link-hover-bg-color);
+    border-bottom-color: var(--link-hover-line-color);
+}
+
+#write u,
+#write ins {
+    text-decoration-color: var(--primary-color);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+}
+
+/* ============================================
+   CODE
+   ============================================ */
+
+/* Inline code */
+code, tt {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background-color: var(--bg-color-panel);
+    color: var(--accent-amber);
+    padding: 0.15em 0.45em;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+/* Code block container */
+.md-fences,
+code, tt {
+    font-family: var(--font-mono);
+}
+
+.md-fences {
+    background-color: var(--bg-color-deep);
+    border: 1px solid var(--border-color-strong);
+    border-radius: 8px;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+    padding: 0.9rem 1.2rem;
+    color: var(--text-color-secondary);
+    font-size: 0.88em;
+    line-height: 1.65;
+    box-shadow:
+        inset 0 1px 0 var(--surface-hairline),
+        0 8px 24px var(--shadow-soft);
+}
+
+.md-fences.md-focus {
+    border-color: var(--primary-border-strong);
+    box-shadow:
+        inset 0 1px 0 rgba(var(--white-rgb), 0.04),
+        0 0 0 1px rgba(var(--primary-rgb), 0.12),
+        0 8px 24px var(--shadow-medium);
+}
+
+.CodeMirror-gutters {
+    background-color: #ebe4f2;
+    border-right: 1px solid var(--border-color-strong);
+}
+
+/* Mermaid / diagram preview
+   Keep global text colors untouched: flowchart nodes may use light fills. */
+.md-diagram-panel {
+    background-color: rgba(var(--bg-color-deep-rgb), 0.32);
+    border: 1px solid rgba(var(--border-color-strong-rgb), 0.72);
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    overflow-x: auto;
+}
+
+#write .md-focus .md-diagram-panel {
+    border-color: rgba(var(--primary-rgb), 0.42);
+    box-shadow: 0 0 0 1px var(--primary-bg-soft);
+}
+
+.md-diagram-panel svg {
+    max-width: 100%;
+}
+
+.md-diagram-panel .messageText,
+.md-diagram-panel .loopText,
+.md-diagram-panel .labelText,
+.md-diagram-panel .noteText,
+.md-diagram-panel .sequenceNumber,
+.md-diagram-panel .sectionTitle,
+.md-diagram-panel .taskText,
+.md-diagram-panel .taskTextOutsideRight,
+.md-diagram-panel .taskTextOutsideLeft,
+.md-diagram-panel .tick text,
+.md-diagram-panel .todayText {
+    fill: var(--text-color) !important;
+    color: var(--text-color) !important;
+}
+
+.md-diagram-panel .actor-line,
+.md-diagram-panel .messageLine0,
+.md-diagram-panel .messageLine1,
+.md-diagram-panel .loopLine,
+.md-diagram-panel .noteLine,
+.md-diagram-panel .activation0,
+.md-diagram-panel .activation1,
+.md-diagram-panel .activation2,
+.md-diagram-panel .note,
+.md-diagram-panel .grid .tick line {
+    stroke: rgba(var(--text-rgb), 0.72) !important;
+}
+
+.md-diagram-panel .arrowheadPath,
+.md-diagram-panel marker path {
+    fill: rgba(var(--text-rgb), 0.86) !important;
+    stroke: rgba(var(--text-rgb), 0.86) !important;
+}
+
+.md-diagram-panel .labelBox {
+    fill: var(--bg-color-panel) !important;
+    stroke: rgba(var(--accent-purple-soft-rgb), 0.58) !important;
+}
+
+.md-diagram-panel .labelText,
+.md-diagram-panel .loopText {
+    fill: var(--accent-purple-soft) !important;
+    color: var(--accent-purple-soft) !important;
+}
+
+.md-diagram-panel .note {
+    fill: var(--primary-bg-soft) !important;
+}
+
+.md-diagram-panel .task {
+    stroke: var(--primary-bg-selected) !important;
+}
+
+.md-diagram-panel .grid .tick line {
+    opacity: 0.55;
+}
+
+.md-diagram-panel-error {
+    display: none;
+}
+
+.md-diagram-panel-error:not(:empty) {
+    display: block;
+    background-color: rgba(var(--accent-red-rgb), 0.06);
+    border: 1px solid rgba(var(--accent-red-rgb), 0.22);
+    border-radius: 4px;
+    color: #a72626 !important;
+    margin-top: 0.75rem;
+    padding: 0.45rem 0.75rem;
+}
+
+.enable-diagrams pre.md-fences[lang="sequence"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="flow"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="mermaid"] .code-tooltip {
+    background-color: var(--bg-color-panel) !important;
+    color: var(--accent-purple-soft) !important;
+    border: 1px solid var(--border-color-strong);
+    border-radius: 4px;
+}
+
+/* ============================================
+   BLOCKQUOTE
+   ============================================ */
+
+#write blockquote {
+    border-left: 3px solid var(--primary-color);
+    background-color: rgba(var(--primary-deep-rgb), 0.08);
+    margin: 1.2rem 0;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0 6px 6px 0;
+    color: #6d5d87;
+}
+
+#write blockquote p {
+    color: #6d5d87;
+    margin: 0;
+}
+
+/* ============================================
+   TABLE
+   ============================================ */
+
+#write table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.35rem 0 0.75rem;
+    font-size: 0.93rem;
+    border: 1px solid var(--border-color-strong);
+}
+
+#write table thead tr {
+    background-color: var(--bg-color-panel-strong);
+    border-bottom: 2px solid var(--primary-border-medium);
+}
+
+#write table th {
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #5b2f91;
+    font-size: 0.88rem;
+    letter-spacing: 0.01em;
+    border: 1px solid var(--border-color-strong);
+}
+
+#write table td {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-color-strong);
+    color: var(--text-color-secondary);
+    vertical-align: top;
+}
+
+#write table tr:nth-child(2n) td {
+    background-color: rgba(var(--bg-color-panel-rgb), 0.62);
+}
+
+#write table tr:hover td {
+    background-color: var(--primary-bg-soft);
+}
+
+/* Typora table edit UI / 表格编辑浮层 */
+.ty-table-edit,
+#md-grid-widget,
+.md-table-resize-popover,
+#typora-table-row-col-resize,
+.table-tooltip {
+    background-color: var(--bg-color-deep) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color-strong) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 18px 44px rgba(49, 39, 61, 0.16) !important;
+}
+
+.ty-table-edit td {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+    min-height: 16px !important;
+    max-height: 16px !important;
+    padding: 0 !important;
+    background-color: var(--bg-color-panel) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    font-size: 0 !important;
+}
+
+.ty-table-edit td.active,
+.ty-table-edit td.highlight {
+    background-color: rgba(var(--primary-rgb), 0.26) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.ty-table-edit .ty-table-edit-footer,
+.table-tooltip .btn,
+.table-tooltip button,
+.md-table-resize-popover button,
+#typora-table-row-col-resize button {
+    color: var(--text-color-muted) !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.table-tooltip .btn:hover,
+.table-tooltip button:hover,
+.md-table-resize-popover button:hover,
+#typora-table-row-col-resize button:hover {
+    color: var(--accent-cyan) !important;
+    background-color: var(--link-hover-bg-color) !important;
+}
+
+/* ============================================
+   LIST
+   ============================================ */
+
+#write ul,
+#write ol {
+    padding-left: 1.875rem;  /* Match GitHub theme: 30px */
+    margin: 0.8em 0;
+}
+
+#write li > ul,
+#write li > ol {
+    margin: 0;
+}
+
+#write ul:first-child,
+#write ol:first-child {
+    margin-top: 0;
+}
+
+#write ul:last-child,
+#write ol:last-child {
+    margin-bottom: 0;
+}
+
+#write li {
+    color: var(--text-color-secondary);
+    line-height: 1.8;
+}
+
+#write ul li::marker {
+    color: var(--primary-color);
+}
+
+#write ol li::marker {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ============================================
+   TASK LIST / checkbox
+   ============================================ */
+
+#write li p.first {
+    display: inline-block;
+}
+
+#write .md-task-list-item > input {
+    margin-left: -1.3em;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#write .md-task-list-item {
+    line-height: 1.6;
+}
+
+#write .md-task-list-item.task-list-done > p {
+    color: #a096aa;
+    text-decoration: line-through;
+}
+
+/* ============================================
+   HR
+   ============================================ */
+
+#write hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(var(--primary-rgb), 0.55),
+        rgba(var(--accent-cyan-rgb), 0.38),
+        transparent
+    );
+    margin: 2.4rem 0;
+}
+
+/* ============================================
+   IMAGE
+   ============================================ */
+
+#write img {
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* ============================================
+   MARK / HIGHLIGHT
+   ============================================ */
+
+#write mark {
+    background-color: rgba(var(--accent-green-rgb), 0.18);
+    color: #0f633d;
+    border: 1px solid rgba(var(--accent-green-rgb), 0.34);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+}
+
+/* ============================================
+   TOC
+   ============================================ */
+
+.md-toc {
+    background-color: var(--bg-color-deep);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    margin: 1.5rem 0;
+}
+
+.md-toc-item a {
+    color: var(--text-color-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.md-toc-item a:hover {
+    color: var(--primary-color);
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+.sidebar-tab-btn {
+    color: var(--text-color-muted);
+}
+
+.sidebar-tab-btn.active {
+    color: var(--primary-color);
+}
+
+#typora-sidebar {
+    background-color: var(--side-bar-bg-color);
+    border-right: var(--window-border);
+}
+
+.file-list-item-file-name,
+.file-node-content {
+    color: var(--text-color-muted);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+}
+
+.file-list-item.active .file-list-item-file-name,
+.file-node-open > .file-node-background > .file-node-content {
+    color: var(--accent-purple-soft);
+}
+
+.file-list-item.active,
+.file-node-open > .file-node-background,
+.outline-active,
+.pin-outline .outline-active {
+    background-color: var(--primary-bg-subtle);
+    border-radius: 4px;
+}
+
+.outline-active,
+.outline-active .outline-label,
+.pin-outline .outline-active,
+.pin-outline .outline-active .outline-label {
+    color: #5b2f91 !important;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color-strong);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* ============================================
+   FOCUS MODE
+   ============================================ */
+
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) {
+    opacity: 0.25;
+}
+
+/* ============================================
+   PRINT / EXPORT
+   ============================================ */
+
+@media print {
+    body {
+        /* 打印/导出使用浅色底，避免暗色背景导致耗墨或可读性问题。 */
+        background-color: #ffffff;
+        color: #1f1b24;
+    }
+
+    .typora-export * {
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+/* Typora special blocks fallback: YAML, HTML and raw blocks. */
+pre.md-meta-block,
+.md-rawblock-container,
+.md-htmlblock-container {
+    background: var(--bg-color-deep) !important;
+    color: var(--text-color-secondary) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+#write pre.md-meta-block {
+    background: linear-gradient(
+        135deg,
+        rgba(var(--primary-rgb), 0.12),
+        rgba(var(--bg-color-deep-rgb), 0.96)
+    ) !important;
+    color: #6d4ea3 !important;
+    border: 1px solid var(--border-color-strong);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 8px;
+    margin: 0 0 1.6rem;
+    padding: 0.85rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.65;
+    box-shadow: inset 0 1px 0 var(--surface-hairline);
+}
+
+/* Math / LaTeX：阅读状态保持透明，编辑状态为深色覆盖。 */
+.md-math-block,
+.md-display-math,
+.MathJax_Display,
+.md-mathjax-preview {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0;
+    margin: 0.85rem 0;
+    padding: 0;
+    overflow-x: auto;
+}
+
+.md-mathjax-midline {
+    background-color: transparent !important;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.md-math-block .MathJax,
+.md-display-math .MathJax,
+.MathJax_Display .MathJax {
+    color: var(--text-color-secondary);
+}
+
+.md-math-block:not(.md-rawblock-on-edit) .md-rawblock-container,
+.md-math-block:not(.md-rawblock-on-edit) .md-math-container {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.md-rawblock-input,
+.md-rawblock-control:not(.md-rawblock-tooltip),
+.md-rawblock-on-edit,
+.md-rawblock-on-edit .md-rawblock-container,
+.md-mathjax-midline .CodeMirror,
+.md-mathjax-midline .CodeMirror-lines,
+.md-mathjax-midline .CodeMirror-code,
+.md-mathjax-midline textarea {
+    color: var(--text-color) !important;
+}
+
+.md-rawblock-input,
+.md-rawblock-control:not(.md-rawblock-tooltip),
+.md-rawblock-on-edit,
+.md-rawblock-on-edit .md-rawblock-container {
+    background-color: var(--bg-color-deep) !important;
+}
+
+.md-mathjax-midline .CodeMirror,
+.md-mathjax-midline .CodeMirror-lines,
+.md-mathjax-midline .CodeMirror-code,
+.md-mathjax-midline textarea {
+    background-color: transparent !important;
+}
+
+.md-math-block.md-focus,
+.md-math-block.md-rawblock-on-edit,
+#write .md-math-block.md-rawblock-on-edit,
+.md-display-math.md-focus,
+.md-mathjax-preview.md-focus,
+.md-mathjax-midline.md-focus,
+.md-rawblock-on-edit .md-mathjax-preview,
+.md-rawblock-on-edit .md-mathjax-midline {
+    background-color: rgba(var(--primary-rgb), 0.045) !important;
+    border-radius: 6px;
+    padding: 0.12rem 0.24rem;
+}
+
+.md-math-block .md-rawblock-before,
+.md-math-block .md-rawblock-after {
+    background-color: transparent !important;
+    color: var(--text-color-muted) !important;
+}
+
+.md-math-block.md-rawblock-on-edit .md-rawblock-before,
+.md-math-block.md-rawblock-on-edit .md-rawblock-after,
+.md-rawblock-on-edit .md-rawblock-input,
+.md-rawblock-input {
+    background-color: var(--bg-color-deep) !important;
+    color: var(--text-color) !important;
+}
+
+.md-hover-tip,
+#math-tooltip,
+.md-rawblock-on-edit .CodeMirror,
+.md-math-block .CodeMirror {
+    background-color: var(--bg-color-deep) !important;
+    color: var(--text-color) !important;
+}
+
+.md-rawblock-on-edit .CodeMirror-gutters,
+.md-math-block .CodeMirror-gutters {
+    background-color: var(--bg-color-deep) !important;
+    border-right: 1px solid var(--border-color-strong) !important;
+}
+
+.md-mathjax-midline .CodeMirror-cursor,
+.md-rawblock-input .CodeMirror-cursor,
+.md-rawblock-container .CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid var(--primary-color) !important;
+}
+
+.md-rawblock > .md-rawblock-tooltip,
+.md-rawblock-tooltip,
+.md-htmlblock-panel,
+.md-htmlblock .md-rawblock-tooltip {
+    background-color: var(--bg-color-panel) !important;
+    color: var(--accent-purple-soft) !important;
+    border: 1px solid var(--border-color-strong);
+    border-radius: 4px;
+}
+
+.md-rawblock-tooltip .ty-rawblock-confirm,
+.md-rawblock-tooltip a,
+.md-rawblock-tooltip span {
+    background-color: transparent !important;
+    color: var(--accent-purple-soft) !important;
+}
+
+.md-rawblock-tooltip a:hover,
+.md-rawblock-tooltip .ty-rawblock-confirm:hover {
+    color: var(--accent-cyan) !important;
+}
+
+.md-mathjax-midline ::selection,
+.md-rawblock-input ::selection,
+.md-rawblock-on-edit ::selection {
+    background-color: var(--primary-bg-selected) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* ============================================
+   SYNTAX HIGHLIGHTING / CodeMirror
+   ============================================ */
+
+.cm-s-inner {
+    background-color: var(--bg-color-deep);
+    color: var(--text-color-secondary);
+    font-family: var(--font-mono);
+    line-height: 1.6;
+}
+
+.cm-s-inner .CodeMirror-gutters {
+    background: #ebe4f2;
+    border-right: 1px solid var(--border-color-strong);
+}
+
+.cm-s-inner .CodeMirror-linenumber {
+    color: var(--meta-content-color);
+}
+
+.cm-s-inner .CodeMirror-cursor {
+    border-left: 1px solid var(--primary-color) !important;
+}
+
+/* CodeMirror 选区：只覆盖选区层，避免对每个语法片段或行内节点做深层匹配。 */
+.CodeMirror-selected,
+.CodeMirror-focused .CodeMirror-selected,
+#typora-source .CodeMirror-selected,
+.cm-s-inner div.CodeMirror-selected,
+.cm-s-typora-default div.CodeMirror-selected {
+    background: var(--selection-bg) !important;
+}
+
+.CodeMirror-selectedtext,
+#write .md-fences .CodeMirror-selectedtext,
+.md-fences .CodeMirror-selectedtext,
+.cm-s-inner .CodeMirror-selectedtext {
+    color: #ffffff !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.cm-s-inner .cm-keyword {
+    color: #5b2f91;
+}
+
+.cm-s-inner .cm-def,
+.cm-s-inner .cm-callee {
+    color: var(--accent-blue);
+}
+
+.cm-s-inner .cm-string,
+.cm-s-inner .cm-string-2 {
+    color: var(--accent-green);
+}
+
+.cm-s-inner .cm-variable,
+.cm-s-inner .cm-variable-2,
+.cm-s-inner .cm-variable-3,
+.cm-s-inner .cm-property {
+    color: var(--accent-cyan);
+}
+
+.cm-s-inner .cm-number {
+    color: var(--accent-amber);
+}
+
+.cm-s-inner .cm-type,
+.cm-s-inner .cm-qualifier,
+.cm-s-inner .cm-builtin {
+    color: var(--accent-amber);
+}
+
+.cm-s-inner .cm-comment {
+    color: rgba(var(--text-rgb), 0.42);
+    font-style: italic;
+}
+
+.cm-s-inner .cm-operator,
+.cm-s-inner .cm-punctuation {
+    color: #6d4ea3;
+}
+
+.cm-s-inner .cm-tag {
+    color: var(--accent-pink);
+}
+
+.cm-s-inner .cm-attribute {
+    color: var(--accent-amber);
+}
+
+.cm-s-inner .cm-error {
+    color: var(--accent-red);
+    border-bottom: 1px solid var(--accent-red);
+}
