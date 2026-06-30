@@ -184,7 +184,7 @@ body {
     line-height: 1.3;
     margin-top: 2.4rem;
     margin-bottom: 0.8rem;
-    color: #e2d3fe;
+    color: #f4dfb8;
     letter-spacing: 0;
 }
 
@@ -198,29 +198,29 @@ body {
 
 #write h2 {
     font-size: 1.6rem;
-    color: #d8c3ff;
+    color: #fff2bf;
     border-bottom: 1px solid rgba(var(--primary-rgb), 0.38);
     padding-bottom: 0.35rem;
 }
 
 #write h3 {
     font-size: 1.3rem;
-    color: #80f4ff;
+    color: #64e0b3;
 }
 
 #write h4 {
     font-size: 1.1rem;
-    color: #ff80b5;
+    color: #ff7fa2;
 }
 
 #write h5 {
     font-size: 1rem;
-    color: #b080ff;
+    color: #c8a8ff;
 }
 
 #write h6 {
     font-size: 0.92rem;
-    color: #9f99aa;
+    color: #b8a3bd;
 }
 
 #write h2,
